@@ -8,12 +8,16 @@ import {
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { FormEvent } from "react";
 
 const Signin = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted");
-  };
+const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    
+};
+
+  
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
@@ -49,6 +53,9 @@ const Signin = () => {
             </span>
             <BottomGradient />
           </button>
+        </div>
+        <div className="flex flex-row justify-center pt-4">
+          <p className=" text-neutral-800 dark:text-neutral-200">Dont't have an account?<Link href="/signin" className="underline text-indigo-500" > SignUp</Link></p>
         </div>
       </form>
     </div>

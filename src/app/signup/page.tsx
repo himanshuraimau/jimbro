@@ -1,25 +1,33 @@
 "use client";
-import React from "react";
+import React, { FormEvent } from "react";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { cn } from "@/utils/cn";
 import {
-  IconBrandGithub,
   IconBrandGoogle,
-  IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import Link from "next/link";
+import axios from "axios";
 
 const Signup = () => {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
-  };
+    const formData = new FormData(e.currentTarget);
+  
+    try {
+      const response = await axios.post('/api/signup', formData);
+      console.log('Signup successful:', response.data);
+    }catch (error) {
+      console.error('Error signing up:', error);
+    }
+  }
+  
+  
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to JimBro
       </h2>
-
       <form className="my-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
@@ -58,6 +66,9 @@ const Signup = () => {
             </span>
             <BottomGradient />
           </button>
+        </div>
+        <div className="flex flex-row justify-center pt-4">
+          <p className=" text-neutral-800 dark:text-neutral-200">Already have an account?<Link href="/signin" className="underline text-indigo-500" >Signin</Link></p>
         </div>
       </form>
     </div>
