@@ -9,12 +9,11 @@ import {
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
 import { FormEvent } from "react";
 
 const Signin = () => {
 const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    
+        e.preventDefault();
 };
 
   
