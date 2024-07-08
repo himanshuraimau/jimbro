@@ -12,16 +12,7 @@ import axios from "axios";
 const Signup = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-  
-    try {
-      const response = await axios.post('/api/signup', formData);
-      console.log('Signup successful:', response.data);
-    }catch (error) {
-      console.error('Error signing up:', error);
-    }
   }
-  
   
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
