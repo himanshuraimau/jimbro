@@ -97,7 +97,7 @@ const Signin = () => {
         </div>
         <div className="flex flex-row justify-center pt-4">
           <p className=" text-neutral-800 dark:text-neutral-200">
-            Don&apos;t have an account?
+              Do not have an account?
             <Link href="/signup" className="underline text-indigo-500">
               {" "}
               Sign Up
