@@ -11,7 +11,7 @@ function Hero() {
         height={400}
         alt="main_img"
       />
-      <div className='pt-9 ml-10 pr-20 text-1xl text-white'>
+       <div className='pt-9 ml-10 pr-20 text-1xl text-white'>
         <p className='pb-5'>
           Welcome to Jimbro, your premier AI-powered fitness companion. Jimbro is designed to revolutionize your fitness journey with personalized workout plans, real-time feedback, and comprehensive progress tracking. Whether you are a fitness novice or an experienced athlete, Jimbro tailors every session to your unique needs and goals.
         </p>
