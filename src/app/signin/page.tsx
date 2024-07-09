@@ -1,19 +1,50 @@
 "use client";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent } from "react";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { cn } from "@/utils/cn";
-import {
-  IconBrandGoogle,
-} from "@tabler/icons-react";
+import { IconBrandGoogle } from "@tabler/icons-react";
 import Link from "next/link";
-import axios from "axios";
+import * as z from "zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
+const FormSchema = z.object({
+  email: z.string().min(1, 'Email is required').email('Invalid email'),
+  password: z
+    .string()
+    .min(1, 'Password is required')
+    .min(8, 'Password must have at least 8 characters'),
+});
 
 const Signin = () => {
- 
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (values) => {
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
+
+    if (result?.error) {
+      console.error(result.error);
+    } else {
+      router.push("/dashboard"); 
+    }
   };
 
   return (
@@ -22,14 +53,16 @@ const Signin = () => {
         Welcome to JimBro
       </h2>
 
-      <form className="my-8" onSubmit={handleSubmit}>
+      <form className="my-8" onSubmit={handleSubmit(onSubmit)}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
           <Input
             id="email"
             placeholder="projectmayhem@fc.com"
             type="email"
+            {...register("email")}
           />
+          {errors.email && <p className="text-red-500">{errors.email.message}</p>}
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
@@ -37,7 +70,9 @@ const Signin = () => {
             id="password"
             placeholder="••••••••"
             type="password"
+            {...register("password")}
           />
+          {errors.password && <p className="text-red-500">{errors.password.message}</p>}
         </LabelInputContainer>
 
         <button
