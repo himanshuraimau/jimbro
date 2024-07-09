@@ -1,22 +1,21 @@
 "use client";
-import React from "react";
+import React, { FormEvent, useState } from "react";
 import { Label } from "../../components/ui/label";
 import { Input } from "../../components/ui/input";
 import { cn } from "@/utils/cn";
 import {
-  IconBrandGithub,
   IconBrandGoogle,
-  IconBrandOnlyfans,
 } from "@tabler/icons-react";
 import Link from "next/link";
-import { FormEvent } from "react";
+import axios from "axios";
 
 const Signin = () => {
-const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-};
+ 
 
-  
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
@@ -26,18 +25,26 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input
+            id="email"
+            placeholder="projectmayhem@fc.com"
+            type="email"
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input
+            id="password"
+            placeholder="••••••••"
+            type="password"
+          />
         </LabelInputContainer>
 
         <button
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
         >
-          Sign up &rarr;
+          Sign in &rarr;
           <BottomGradient />
         </button>
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
@@ -54,12 +61,19 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           </button>
         </div>
         <div className="flex flex-row justify-center pt-4">
-          <p className=" text-neutral-800 dark:text-neutral-200">Dont't have an account?<Link href="/signin" className="underline text-indigo-500" > SignUp</Link></p>
+          <p className=" text-neutral-800 dark:text-neutral-200">
+            Don't have an account?
+            <Link href="/signup" className="underline text-indigo-500">
+              {" "}
+              Sign Up
+            </Link>
+          </p>
         </div>
       </form>
     </div>
   );
-}
+};
+
 const BottomGradient = () => {
   return (
     <>
@@ -68,6 +82,7 @@ const BottomGradient = () => {
     </>
   );
 };
+
 const LabelInputContainer = ({
   children,
   className,
@@ -75,11 +90,7 @@ const LabelInputContainer = ({
   children: React.ReactNode;
   className?: string;
 }) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn("flex flex-col space-y-2 w-full", className)}>{children}</div>;
 };
 
 export default Signin;
