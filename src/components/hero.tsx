@@ -21,7 +21,6 @@ function Hero() {
         <p className='pb-5'>
           Jimbro is not just a fitness app; it is not your dedicated partner in achieving a healthier, stronger, and more confident you.
         </p>
-        <p>Hello</p>
       </div>
     </div>
   );
