@@ -19,33 +19,41 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email", placeholder: "jsmith@gmail.com" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials: Record<"email" | "password", string> | undefined, req: Pick<RequestInternal, "query" | "body" | "headers" | "method">): Promise<User | null> {
+      async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
-        
-        const existingUser = await db.user.findFirst({
-          where: {
-            email: credentials.email,
-          },
-        });
-        
-        if (!existingUser) {
+          console.error("Missing email or password");
           return null;
         }
 
-        const passwordMatch = await bcrypt.compare(credentials.password, existingUser.password);
+        try {
+          const existingUser = await db.user.findFirst({
+            where: {
+              email: credentials.email,
+            },
+          });
 
-        if (!passwordMatch) {
+          if (!existingUser) {
+            console.error("No user found with the provided email");
+            return null;
+          }
+
+          const passwordMatch = await bcrypt.compare(credentials.password, existingUser.password);
+
+          if (!passwordMatch) {
+            console.error("Password does not match");
+            return null;
+          }
+
+          // Return user object
+          return {
+            id: `${existingUser.id}`,
+            name: existingUser.fullName,
+            email: existingUser.email,
+          };
+        } catch (error) {
+          console.error("Error in authorize function:", error);
           return null;
         }
-        
-        // Return user object
-        return {
-          id: `${existingUser.id}`,
-          name: existingUser.fullName,
-          email: existingUser.email,
-        };
       },
     }),
   ],
@@ -61,7 +69,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       session.user = {
         ...session.user,
-        name:token.name,
+        name: token.name,
         id: (token.id as string).toString(), // Add id to session user and cast to string
         email: token.email || '', // Add email to session user, default to empty string if undefined or null
       };

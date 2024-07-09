@@ -97,7 +97,9 @@ const Signin = () => {
         </div>
         <div className="flex flex-row justify-center pt-4">
           <p className=" text-neutral-800 dark:text-neutral-200">
-            Do not have an account?
+
+              Do not have an account?
+
             <Link href="/signup" className="underline text-indigo-500">
               {" "}
               Sign Up
@@ -127,5 +129,4 @@ const LabelInputContainer = ({
 }) => {
   return <div className={cn("flex flex-col space-y-2 w-full", className)}>{children}</div>;
 };
-
 export default Signin;
