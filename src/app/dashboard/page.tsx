@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
-import Navdash from "@/components/navdash";
-import Datescroll from "@/components/datescroll";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
+import Navdash from "@/components/navdash";
+import Datescroll from "@/components/datescroll";
 
-export default async function Home() {
+export default async function Dashboard() {
   const session = await getServerSession(authOptions);
 
   if (!session) {
