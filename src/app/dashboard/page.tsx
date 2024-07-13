@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Datescroll from "@/components/Calendar";
+import RecordingComponent from "@/components/textbox";
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
@@ -12,10 +13,11 @@ export default async function Dashboard() {
   }
 
   return (
-    <div className="w-screen h-screen bg-black text-white">
+    <div className="w-full h-screen bg-black text-white overflow-y-hidden">
       
       <Datescroll />
       Welcome {session.user.name}
+      <RecordingComponent />
     </div>
   );
 }
