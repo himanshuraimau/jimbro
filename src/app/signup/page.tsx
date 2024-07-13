@@ -44,6 +44,11 @@ const Signup = () => {
   };
 
   return (
+    <div>
+       <div className=" w-full h-screen dark:bg-black bg-white  dark:bg-grid-white/[0.2] bg-grid-black/[0.2] relative flex items-center justify-center">
+       
+       <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
+
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to JimBro
@@ -111,6 +116,8 @@ const Signup = () => {
           </p>
         </div>
       </form>
+    </div>
+    </div>
     </div>
   );
 };
