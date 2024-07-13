@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { format, addDays, startOfWeek, isSameDay } from 'date-fns';
 
-const Calendar = ({ selectedDate, onDateClick }) => {
+const Calendar = ({ selectedDate, onDateClick }:(any)) => {
   const [currentWeek, setCurrentWeek] = useState(new Date());
 
   const renderHeader = () => {
