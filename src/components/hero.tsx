@@ -6,7 +6,7 @@ function Hero() {
     <div className='flex flex-row m-9 text-lg pl-10 pr-0'>
       <Image
         className='rounded-md brightness-100'
-        src="/i2.jpeg"
+        src="/sapiens.png"
         width={400}
         height={400}
         alt="main_img"
